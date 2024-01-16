@@ -1,0 +1,31 @@
+@import '~bulma/bulma.sass';
+
+body {
+  background-color: lightblue;
+  min-height: 100vh;
+}
+
+main {
+  padding: 32px;
+}
+
+.qrcode {
+
+  &--container {
+    background-color: #fff;
+    display: inline-block;
+    padding: 16px;
+
+    > svg {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+ul.savedCodes {
+  list-style: none;
+  margin-left: 0;
+  max-height: 70vh;
+  overflow: scroll;
+}
