@@ -1,85 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import QRCode from 'react-qr-code';
+import InputFields from './components/InputFields';
+
 import { toast } from 'bulma-toast';
 
 import './styles.scss';
 
-interface QrCode {
+export interface QrCodeInterface {
     value: string;
     timestamp: number;
 }
 
 const App = () => {
 
+  const [qrCodes, setQrCodes] = useState<QrCodeInterface[]>([]);
+  const [qrCodeValue, setQrCodeValue] = useState('');
+
   useEffect(() => {
-    console.log('App mounted');
+      const retrievedArrayString = localStorage.getItem('qrCodes');
+      const parsedQrCodes = retrievedArrayString ? JSON.parse(retrievedArrayString) : [];
+
+      setQrCodes(parsedQrCodes);
+
+      if (parsedQrCodes.length > 0) {
+        setQrCodeValue(parsedQrCodes[parsedQrCodes.length - 1].value);
+      }
   }, []);
-
-  const [qrCodes, setQrCodes] = useState<QrCode[]>([]);
-
-  useEffect(() => {
-    console.log('qrCodes changed');
-  }, [qrCodes]);
-  const getInitialQrCodeValue = () => {
-
-    const retrievedArrayString = localStorage.getItem('qrCodes');
-    const parsedQrCodes = retrievedArrayString ? JSON.parse(retrievedArrayString) : [];
-
-    setQrCodes(parsedQrCodes);
-
-    if (parsedQrCodes.length > 0) {
-      return parsedQrCodes[parsedQrCodes.length - 1].value;
-    }
-
-    return '';
-  }
-
-  const [qrCodeValue, setQrCodeValue] = useState(getInitialQrCodeValue);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQrCodeValue(event.target.value);
-  };
-
-  const handleSaveClick = () => {
-    if (!qrCodeValue || qrCodeValue === '') {
-        return;
-    }
-
-    // check if this value already exists
-    const alreadyExists = qrCodes.find((qrCode: any) => qrCode.value === qrCodeValue);
-    if (alreadyExists) {
-      // notify and don't add it again
-      toast({
-        message: "QR Code already exists",
-        type: "is-warning",
-        position: "bottom-right",
-        duration: 5000
-      });
-      return;
-    }
-
-    const codesToSave = [...qrCodes];
-
-    codesToSave.push({
-      value: qrCodeValue,
-      timestamp: new Date().getTime(),
-    });
-
-    // update the state
-    console.log('updating qrCodes');
-    setQrCodes(codesToSave);
-
-    localStorage.setItem('qrCodes', JSON.stringify(codesToSave));
-
-    // notify about the save
-    toast({
-      message: "QR Code saved!",
-      type: "is-success",
-      position: "bottom-right",
-      duration: 5000
-    });
-  };
 
   const restoreQrCode = (event: React.MouseEvent<HTMLPreElement, MouseEvent>) => {
     const qrCodeValue = event.currentTarget.innerText;
@@ -122,16 +69,12 @@ const App = () => {
             This is the simplest QR code generator I could come up with to fill my needs.
           </p>
           <p>You can save your past QR codes to local storage as well in case you need to retrieve them later.</p>
-          <div className="field">
-            <label className="label">Content</label>
-            <div className="control mb-3">
-              <input className="input" type="text" placeholder="Text input" value={qrCodeValue}
-                     onChange={handleInputChange}
-                     maxLength={2048}
-              />
-            </div>
-            <button className="button is-primary has-text-dark" onClick={handleSaveClick}>Save</button>
-          </div>
+          <InputFields
+            qrCodeValue={qrCodeValue}
+            setQrCodeValue={setQrCodeValue}
+            qrCodes={qrCodes}
+            setQrCodes={setQrCodes}
+            />
         </div>
         <div className="column">
           <div className="qrcode">
@@ -152,7 +95,7 @@ const App = () => {
             :(<p>Click any of these codes to restore it in the QR code value section</p>)
           }
             <ul className="savedCodes">
-              {qrCodes.map ((qrCode: QrCode) => {
+              {qrCodes.map ((qrCode: QrCodeInterface) => {
                 return (
                     <li key={qrCode.timestamp}>
                       <pre>{qrCode.value}</pre>
@@ -174,7 +117,7 @@ const App = () => {
                         }}>Copy
                         </button>
                         <button className="button is-danger is-small" onClick={() => {
-                          const filteredQrCodes = qrCodes.filter((code: QrCode) => code.value !== qrCode.value);
+                          const filteredQrCodes = qrCodes.filter((code: QrCodeInterface) => code.value !== qrCode.value);
                           setQrCodes(filteredQrCodes);
                           localStorage.setItem('qrCodes', JSON.stringify(filteredQrCodes));
                         }}>Delete
