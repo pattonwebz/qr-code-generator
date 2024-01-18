@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack",
+    "deploy": "webpack && gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
