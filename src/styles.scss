@@ -29,3 +29,8 @@ ul.savedCodes {
   max-height: 70vh;
   overflow-y: scroll;
 }
+
+footer.navbar .navbar-item.is-fullwidth {
+  flex-grow: 1;
+  justify-content: center;
+}
