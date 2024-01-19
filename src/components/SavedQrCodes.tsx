@@ -64,12 +64,6 @@ const savedQrCodes = ({qrCodes, setQrCodes, setQrCodeValue}: SavedQrCodesProps) 
                                     setDeleting([...deleting, qrCode.value]);
 
                                     setTimeout(() => {
-
-                                        // check if the user cancelled the delete meaning that the value is not in the deleting array
-                                        if (!deleting.includes(qrCode.value)) {
-                                            return;
-                                        }
-
                                         const filteredQrCodes = qrCodes.filter((code: QrCodeInterface) => code.value !== qrCode.value);
                                         setQrCodes(filteredQrCodes);
                                         localStorage.setItem('qrCodes', JSON.stringify(filteredQrCodes));
