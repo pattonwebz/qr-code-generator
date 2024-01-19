@@ -13,11 +13,6 @@ const savedQrCodes = ({qrCodes, setQrCodes, setQrCodeValue}: SavedQrCodesProps) 
 
     const [deleting, setDeleting] = React.useState<string[]>([]);
 
-    const cancelDelete = (qrCodeValue: string) => {
-        const updatedDeleting = deleting.filter(value => value !== qrCodeValue);
-        setDeleting(updatedDeleting);
-    };
-
     return (
         <>
             <h2>Saved QR Codes</h2>
@@ -41,7 +36,7 @@ const savedQrCodes = ({qrCodes, setQrCodes, setQrCodeValue}: SavedQrCodesProps) 
                                 </button>
 
                                 <button className="button is-warning has-text-dark is-small" onClick={() => {
-                                    navigator.clipboard.writeText(qrCode.value).then(r => {
+                                    navigator.clipboard.writeText(qrCode.value).then(() => {
                                         toast({
                                             message: "Copied to clipboard!",
                                             type: "is-success",

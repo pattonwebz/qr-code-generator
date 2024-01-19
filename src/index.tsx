@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
-import QRCode from 'react-qr-code';
 import InputFields from './components/InputFields';
-
-import { toast } from 'bulma-toast';
 
 import './styles.scss';
 import QrCodePanel from "./components/QrCodePanel";
