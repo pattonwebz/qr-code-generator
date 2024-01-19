@@ -9,6 +9,10 @@ main {
   padding: 32px;
 }
 
+#root main {
+  margin-bottom: 180px;
+}
+
 .qrcode {
 
   &--container {
@@ -30,7 +34,11 @@ ul.savedCodes {
   overflow-y: scroll;
 }
 
-footer.navbar .navbar-item.is-fullwidth {
-  flex-grow: 1;
-  justify-content: center;
+footer.navbar {
+  max-height: 200px;
+
+  .navbar-item.is-fullwidth {
+    flex-grow: 1;
+    justify-content: center;
+  }
 }

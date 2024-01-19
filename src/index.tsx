@@ -49,7 +49,7 @@ const App = () => {
               <div className="column">
                   <QrCodePanel qrCodeValue={qrCodeValue}/>
               </div>
-              <div className="column is-variable">
+              <div className="column is-4">
                   <SavedQrCodes qrCodes={qrCodes} setQrCodes={setQrCodes} setQrCodeValue={setQrCodeValue}/>
               </div>
           </div>
