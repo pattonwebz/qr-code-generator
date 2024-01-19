@@ -54,7 +54,7 @@ const App = () => {
       <footer className="footer navbar is-fixed-bottom">
           <div className="navbar-item is-fullwidth has-text-centered">
               <p>
-                  <strong>Simple QR Code Generator</strong> by <a href="https://www/pattonwebz.com/">William Patton</a>. The source code is licensed <a href="https://opensource.org/licenses/isc-license.php">ISC</a>. The website content is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                  <strong>Simple QR Code Generator</strong> by <a href="https://www.pattonwebz.com/">William Patton</a>. The source code is licensed <a href="https://opensource.org/licenses/isc-license.php">ISC</a>. The website content is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
               </p>
           </div>
       </footer>
